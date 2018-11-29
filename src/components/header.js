@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link } from 'gatsby'
+import gatsbyMyLogo from '../images/gatsby-icon.png'
+
+const logoInlineStyle = { width: '100px' }
 
 const Header = ({ siteTitle }) => (
   <div
@@ -8,6 +11,7 @@ const Header = ({ siteTitle }) => (
       marginBottom: '1.45rem',
     }}
   >
+    <img src={gatsbyMyLogo} alt="" style={logoInlineStyle} />
     <div
       style={{
         margin: '0 auto',
