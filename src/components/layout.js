@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
-
+import Archive from './Archive'
 import Header from './header'
 import './layout.css'
 
@@ -13,6 +13,18 @@ const Layout = ({ children }) => (
         site {
           siteMetadata {
             title
+          }
+        }
+        allMarkdownRemark {
+          edges {
+            node {
+              excerpt
+              html
+              frontmatter {
+                date(formatString: "MMMM DD, YYYY")
+                title
+              }
+            }
           }
         }
       }
@@ -37,7 +49,15 @@ const Layout = ({ children }) => (
             paddingTop: 0,
           }}
         >
+          <div>{data.allMarkdownRemark.edges[0].node.excerpt}</div>
+          <div>{data.allMarkdownRemark.edges[0].node.frontmatter.date}</div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data.allMarkdownRemark.edges[0].node.html,
+            }}
+          />
           {children}
+          <Archive />
         </div>
       </>
     )}
