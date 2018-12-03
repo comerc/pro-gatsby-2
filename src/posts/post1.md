@@ -1,6 +1,6 @@
 ---
 slug: '/first-post'
-date: '2018-11-29'
+date: '2018-11-28'
 title: 'Title #1'
 ---
 

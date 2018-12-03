@@ -1,24 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { StaticQuery, graphql } from 'gatsby'
+// import PropTypes from 'prop-types'
+import { StaticQuery, graphql, Link } from 'gatsby'
 import './layout.css'
 
-const Archive = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query BlogPostArchive {
-        allMarkdownRemark {
-          edges {
-            node {
-              frontmatter {
-                slug
-                title
-              }
-            }
+const POST_ARCHIVE_QUERY = graphql`
+  query BlogPostArchive {
+    allMarkdownRemark(
+      limit: 5
+      sort: { fields: [frontmatter___date], order: DESC }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            slug
+            title
           }
         }
       }
-    `}
+    }
+  }
+`
+
+const Archive = ({ children }) => (
+  <StaticQuery
+    query={POST_ARCHIVE_QUERY}
     render={({ allMarkdownRemark }) => (
       <>
         <aside>
@@ -30,7 +35,9 @@ const Archive = ({ children }) => (
                   frontmatter: { title, slug },
                 },
               }) => (
-                <li key={slug}>{title} 123</li>
+                <li key={slug}>
+                  <Link to={`/posts${slug}`}>{title}</Link>
+                </li>
               )
             )}
           </ul>
@@ -40,8 +47,8 @@ const Archive = ({ children }) => (
   />
 )
 
-Archive.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+// Archive.propTypes = {
+//   children: PropTypes.node.isRequired,
+// }
 
 export default Archive
