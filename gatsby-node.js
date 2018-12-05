@@ -9,8 +9,26 @@
 const path = require('path')
 
 exports.createPages = ({ graphql, actions: { createPage } }) => {
-  createPage({
-    path: '/somefakepage',
-    component: path.resolve('./src/components/PostLayout.js'),
+  return graphql(`
+    {
+      allMarkdownRemark {
+        edges {
+          node {
+            frontmatter {
+              slug
+              title
+            }
+          }
+        }
+      }
+    }
+  `).then(({ data: { allMarkdownRemark: { edges } } }) => {
+    edges.forEach(({ node: { frontmatter: { slug, title } } }) => {
+      createPage({
+        path: `/posts${slug}`,
+        component: path.resolve('./src/components/PostLayout.js'),
+        context: { slug, title },
+      })
+    })
   })
 }
