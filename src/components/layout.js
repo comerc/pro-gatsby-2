@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
+import { Spring } from 'react-spring'
+import Img from 'gatsby-image'
 import Archive from './Archive'
 import Header from './header'
 import './layout.css'
@@ -12,9 +14,13 @@ const StyledMain = styled.main`
   max-width: 90%;
   display: grid;
   grid-template-columns: 4fr 1fr;
+  grid-gap: 40px;
 `
+const from = { height: 100 }
 
-const Layout = ({ children }) => (
+const to = { height: 200 }
+
+const Layout = ({ children, location }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -35,6 +41,13 @@ const Layout = ({ children }) => (
             }
           }
         }
+        file(relativePath: { regex: "/bl/" }) {
+          childImageSharp {
+            fluid(maxWidth: 500) {
+              ...GatsbyImageSharpFluid_noBase64
+            }
+          }
+        }
       }
     `}
     render={data => (
@@ -49,6 +62,20 @@ const Layout = ({ children }) => (
           <html lang="en" />
         </Helmet>
         <Header siteTitle={data.site.siteMetadata.title} />
+        {/* {location.pathname === '/' && ( */}
+
+        {/* )} */}
+        <Spring
+          from={location.pathname === '/' ? from : to}
+          to={location.pathname === '/' ? to : from}
+        >
+          {styles => (
+            <div style={{ ...styles, overflow: 'hidden' }}>
+              <Img fluid={data.file.childImageSharp.fluid} />
+            </div>
+          )}
+        </Spring>
+
         <StyledMain>
           {/* <div>{data.allMarkdownRemark.edges[0].node.excerpt}</div>
           <div>{data.allMarkdownRemark.edges[0].node.frontmatter.date}</div>

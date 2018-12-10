@@ -4,10 +4,9 @@ import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
 
-const SecondPage = data => {
-  console.log(data)
+const SecondPage = ({ location }) => {
   return (
-    <Layout>
+    <Layout location={location}>
       <h1>Hi from the second page</h1>
       <p>Welcome to page 2</p>
       Lorem, ipsum dolor.

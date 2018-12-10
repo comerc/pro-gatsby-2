@@ -5,7 +5,7 @@ import gatsbyMyLogo from '../images/gatsby-icon.png'
 
 const Root = styled.div`
   background: #524763;
-  margin-bottom: 1.45rem;
+  margin-bottom: 0;
 `
 const Container = styled.div`
   margin: 0 auto;

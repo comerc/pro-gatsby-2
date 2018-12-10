@@ -12,9 +12,10 @@ class PostLayout extends Component {
   render() {
     const {
       data: { markdownRemark },
+      location,
     } = this.props
     return (
-      <Layout>
+      <Layout location={location}>
         <h1>{markdownRemark.frontmatter.title}</h1>
         <div>---</div>
         <div dangerouslySetInnerHTML={{ __html: markdownRemark.html }} />
