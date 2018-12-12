@@ -1,9 +1,11 @@
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
+    siteUrl: 'https://nostalgic-williams-b6413b.netlify.com',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-styled-components',
     {
       resolve: `gatsby-source-filesystem`,
@@ -36,7 +38,7 @@ module.exports = {
     'gatsby-transformer-remark',
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
+    'gatsby-plugin-offline',
     'gatsby-plugin-netlify-cms',
     'gatsby-plugin-netlify', // make sure to put last in the array
   ],
